@@ -18,10 +18,14 @@ def cars_index(request):
 
 def cars_detail(request, car_id):
   car = Car.objects.get(id=car_id)
+  id_list = car.mods.all().values_list('id')
+  mods_car_doesnt_have = Mod.objects.exclude(id__in=id_list)
   show_form = ShowForm()
   return render(request, 'cars/detail.html', {
-    'car': car, 'show_form': show_form
-    })
+    'car': car, 'show_form': show_form,
+    'mods': mods_car_doesnt_have
+  })
+
 
 def add_show(request, car_id):
   form = ShowForm(request.POST)
@@ -31,10 +35,15 @@ def add_show(request, car_id):
     new_show.save()
   return redirect('detail', car_id=car_id)
 
+def assoc_mod(request, car_id, mod_id):
+  Car.objects.get(id=car_id).mods.add(mod_id)
+  return redirect('detail', car_id=car_id)
+
+
 
 class CarCreate(CreateView):
   model = Car
-  fields = '__all__'
+  fields = 'brand', 'model', 'description', 'year'
 
 class CarUpdate(UpdateView):
   model = Car
