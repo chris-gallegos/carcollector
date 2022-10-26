@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Car
+from django.views.generic import ListView, DetailView
+from .models import Car, Mod
 from .forms import ShowForm
 
 # Create your views here.
@@ -32,8 +33,8 @@ def add_show(request, car_id):
 
 
 class CarCreate(CreateView):
-    model = Car
-    fields = '__all__'
+  model = Car
+  fields = '__all__'
 
 class CarUpdate(UpdateView):
   model = Car
@@ -42,3 +43,22 @@ class CarUpdate(UpdateView):
 class CarDelete(DeleteView):
   model = Car
   success_url = '/cars/'
+
+#CBV fors the car Mods
+class ModList(ListView):
+  model = Mod
+
+class ModDetail(DetailView):
+  model = Mod
+
+class ModCreate(CreateView):
+  model = Mod
+  fields = '__all__'
+
+class ModUpdate(UpdateView):
+  model = Mod
+  fields = ['name', 'type']
+
+class ModDelete(DeleteView):
+  model = Mod
+  success_url = '/mods/'

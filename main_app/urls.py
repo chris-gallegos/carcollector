@@ -10,4 +10,9 @@ urlpatterns = [
     path('cars/<int:pk>/update/', views.CarUpdate.as_view(), name='cars_update'),
     path('cars/<int:pk>/delete/', views.CarDelete.as_view(), name='cars_delete'),
     path('cars/<int:car_id>/add_show/', views.add_show, name='add_show'),
+    path('mods/', views.ModList.as_view(), name='mods_index'),  # mods start here
+    path('mods/<int:pk>/', views.ModDetail.as_view(), name='mods_detail'),
+    path('mods/create/', views.ModCreate.as_view(), name='mods_create'),
+    path('mods/<int:pk>/update/', views.ModUpdate.as_view(), name='mods_update'),
+    path('mods/<int:pk>/delete/', views.ModDelete.as_view(), name='mods_delete'),
 ]

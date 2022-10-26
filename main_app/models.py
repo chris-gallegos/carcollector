@@ -10,11 +10,23 @@ TIMES = (
 
 # Create your models here.
 
+class Mod(models.Model):
+  name = models.CharField(max_length=50)
+  type = models.CharField(max_length=20)
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('mods_detail', kwargs={'pk': self.id})
+
+
 class Car(models.Model):
     brand = models.CharField(max_length=100)
     model = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     year = models.IntegerField()
+    mods = models.ManyToManyField(Mod)
 
 
     def __str__(self):
